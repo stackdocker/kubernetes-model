@@ -174,7 +174,7 @@ func (g *schemaGenerator) javaInterfaces(t reflect.Type) []string {
 	if hasItems && hasListMeta {
 		return []string{"io.fabric8.kubernetes.api.model.KubernetesResource", "io.fabric8.kubernetes.api.model.KubernetesResourceList"}
 	}
-	return nil
+	return []string{"io.fabric8.kubernetes.api.model.KubernetesResource"}
 }
 
 func (g *schemaGenerator) generate(t reflect.Type) (*JSONSchema, error) {
@@ -386,9 +386,6 @@ func (g *schemaGenerator) addConstraints(objectName string, propName string, pro
 		case "namespace":
 			prop.Pattern = `^[a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*$`
 			prop.MaxLength = 253
-		case "name":
-			prop.Pattern = `^[a-z0-9]([-a-z0-9]*[a-z0-9])?$`
-			prop.MaxLength = 63
 		}
 	case "EnvVar":
 		switch propName {
